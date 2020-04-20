@@ -1,3 +1,5 @@
+# This code is written in Sage and is used to decompose unitary matrices into product of two-level unitary matrices
+
 I = CC.0
 counter =1
 def decompose(a,d,k):
