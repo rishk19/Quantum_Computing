@@ -1,0 +1,49 @@
+I = CC.0
+counter =1
+def decompose(a,d,k):
+    CC10 = ComplexField(prec=10)
+    MatPrint = MatrixSpace(CC10,d,d)
+    global counter 
+    #print(counter)
+    temp = matrix.identity(CC,d)
+    if (d-k >2):
+        for i in range(k+1,d):
+            z1 = a[k,k]
+            z2 = a[i,k]
+            z3 = ((z1.abs())^2) + ((z2.abs())^2)
+            z3 = z3.sqrt().n()
+            temp[k,k] = z1.conjugate()/z3
+            temp[k,i] = z2.conjugate()/z3
+            temp[i,k] = z2/z3
+            temp[i,i] = -z1/z3
+            print("\nU",counter ," =\n")
+            counter = counter+1
+            print(temp.conjugate())
+            a = temp*a
+            print("\n")
+            #print(a)
+            temp = matrix.identity(CC,d)
+        decompose(a,d,k+1)
+    else:
+        temp[k,k] = a[k,k].conjugate()
+        temp[k,k+1] = a[k+1,k].conjugate()
+        temp[k+1,k] = a[k,k+1].conjugate()
+        temp[k+1,k+1] = a[k+1,k+1].conjugate()
+        print("\nU",counter ," =\n")
+        counter = counter+1
+        print(temp.conjugate())
+        a = temp*a
+        print("\n")
+        print(a)
+        temp = matrix.identity(CC,d)
+        return
+        
+def main():
+    d = 4
+    a = matrix(CC,d,d)
+    a[0] = [1/2,1/2,1/2,1/2]
+    a[1] = [1/2,I/2,-1/2,-I/2]
+    a[2] = [1/2,-1/2,1/2,-1/2]
+    a[3] = [1/2,-I/2,-1/2,I/2]
+    print(a)
+    decompose(a,d,0) 
